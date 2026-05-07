@@ -35,8 +35,8 @@ pipeline {
             steps {
                 bat '''
                 if not exist encrypted_output\\backend mkdir encrypted_output\\backend
-                npx javascript-obfuscator Backend --output encrypted_output/backend --string-array true --string-array-encoding rc4 --unicode-escape-sequence true
-                IF EXIST encrypted_output\\backend\\node_modules rmdir /s /q encrypted_output\\backend\\node_modules
+                call npx javascript-obfuscator Backend --output encrypted_output/backend --string-array true --string-array-encoding rc4 --unicode-escape-sequence true
+                if exist encrypted_output\\backend\\node_modules rmdir /s /q encrypted_output\\backend\\node_modules
                 '''
             }
         }

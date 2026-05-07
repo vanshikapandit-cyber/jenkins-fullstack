@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()
+    }
+
     environment {
         GIT_REPO = 'https://github.com/vanshikapandit-cyber/jenkins-fullstack.git'
         GIT_CREDENTIALS = 'github_creds'
@@ -31,7 +35,7 @@ pipeline {
             steps {
                 bat '''
                 if not exist encrypted_output\\backend mkdir encrypted_output\\backend
-                npx javascript-obfuscator Backend --output encrypted_output/backend
+                npx javascript-obfuscator Backend --output encrypted_output/backend --string-array true --string-array-encoding rc4 --unicode-escape-sequence true
                 '''
             }
         }
@@ -39,7 +43,8 @@ pipeline {
         stage('Encrypt Frontend') {
             steps {
                 bat '''
-                xcopy Frontend encrypted_output\\frontend /E /I /Y
+                if not exist encrypted_output\\frontend mkdir encrypted_output\\frontend
+                php Obfuscate.php --input Frontend --output encrypted_output/frontend
                 '''
             }
         }

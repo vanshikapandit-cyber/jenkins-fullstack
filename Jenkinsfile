@@ -36,7 +36,7 @@ pipeline {
                 bat '''
                 if not exist encrypted_output\\backend mkdir encrypted_output\\backend
                 node Backend/obfuscate.js Backend encrypted_output/backend
-                copy Backend\\package.json encrypted_output\\backend\\
+               
                 '''
             }
         }

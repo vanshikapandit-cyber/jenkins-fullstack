@@ -16,5 +16,5 @@
   "devDependencies": {
     "js-confuser": "^2.0.1",
     "fs-extra": "^11.3.5"
-  }
+  }            
 }
